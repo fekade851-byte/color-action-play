@@ -18,8 +18,21 @@ const ClosingScreen = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-accent via-primary to-secondary p-8">
-      <div className="text-center space-y-12 animate-fade-in">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-accent via-primary to-secondary p-8 relative overflow-hidden">
+      {/* Optional closing video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-20"
+        src="/videos/closing.mp4"
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+        }}
+      />
+      
+      <div className="text-center space-y-12 animate-fade-in relative z-10">
         {/* Success Message */}
         <div className="space-y-6">
           <h1 className="text-6xl md:text-9xl font-black text-white drop-shadow-2xl animate-bounce-slow">

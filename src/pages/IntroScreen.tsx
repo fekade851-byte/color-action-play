@@ -14,8 +14,21 @@ const IntroScreen = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary via-secondary to-accent p-8">
-      <div className="text-center space-y-12 animate-fade-in">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary via-secondary to-accent p-8 relative overflow-hidden">
+      {/* Optional intro video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-20"
+        src="/videos/intro.mp4"
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+        }}
+      />
+      
+      <div className="text-center space-y-12 animate-fade-in relative z-10">
         {/* Title */}
         <div className="space-y-4">
           <h1 className="text-6xl md:text-9xl font-black text-white drop-shadow-2xl animate-bounce-slow">
@@ -61,6 +74,13 @@ const IntroScreen = () => {
             <Settings className="w-12 h-12" />
             SETTINGS
           </Button>
+        </div>
+
+        {/* About Me */}
+        <div className="mt-8 text-center">
+          <p className="text-base md:text-lg text-white/80 font-semibold">
+            Hi! I'm Fkremariam Fentahun, a software developer passionate about building interactive and educational apps that make learning fun and engaging!
+          </p>
         </div>
       </div>
     </div>

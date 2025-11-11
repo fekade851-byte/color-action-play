@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import PlaceholderVideo from "./PlaceholderVideo";
-import { useTextToSpeech } from "@/hooks/useTextToSpeech";
-import { useSettings } from "@/contexts/SettingsContext";
 
 interface VideoFrameProps {
   colorId: string;
@@ -9,40 +7,26 @@ interface VideoFrameProps {
   gradient: string;
   duration: number;
   video?: string;
-  speech?: string;
   onVideoEnd?: () => void;
 }
 
-const VideoFrame = ({ colorId, action, gradient, duration, video, speech, onVideoEnd }: VideoFrameProps) => {
+const VideoFrame = ({ colorId, action, gradient, duration, video, onVideoEnd }: VideoFrameProps) => {
   const [showAction, setShowAction] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const fallbackTimerRef = useRef<NodeJS.Timeout>();
-  const { speak, stop } = useTextToSpeech();
-  const { settings } = useSettings();
 
   useEffect(() => {
     setShowAction(false);
     setVideoError(false);
-    stop(); // Stop any previous speech
 
     // Show action text after brief delay
     const timer = setTimeout(() => {
       setShowAction(true);
-      
-      // Speak the action if audio is enabled and speech text is provided
-      if (settings.audioEnabled && speech) {
-        speak(speech, {
-          rate: 0.95,
-          pitch: 1.2,
-          volume: 1,
-        });
-      }
     }, 500);
 
     // Fallback timer in case video doesn't load or end event doesn't fire
     fallbackTimerRef.current = setTimeout(() => {
-      stop(); // Stop speech when transitioning
       if (onVideoEnd) onVideoEnd();
     }, duration);
 
@@ -51,16 +35,14 @@ const VideoFrame = ({ colorId, action, gradient, duration, video, speech, onVide
       if (fallbackTimerRef.current) {
         clearTimeout(fallbackTimerRef.current);
       }
-      stop(); // Clean up speech on unmount
     };
-  }, [colorId, duration, speech, settings.audioEnabled, onVideoEnd, speak, stop]);
+  }, [colorId, duration, onVideoEnd]);
 
   const handleVideoEnd = () => {
     // Clear fallback timer since video ended naturally
     if (fallbackTimerRef.current) {
       clearTimeout(fallbackTimerRef.current);
     }
-    stop(); // Stop speech when video ends
     if (onVideoEnd) onVideoEnd();
   };
 
