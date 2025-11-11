@@ -53,7 +53,7 @@ const VideoFrame = ({ colorId, action, gradient, duration, video, onVideoEnd }: 
   };
 
   return (
-    <div className="w-full h-full relative overflow-hidden">
+    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-primary via-secondary to-accent">
       {/* Video element or animated placeholder */}
       {video && !videoError ? (
         <video
@@ -76,19 +76,17 @@ const VideoFrame = ({ colorId, action, gradient, duration, video, onVideoEnd }: 
         />
       )}
 
-      {/* Action text overlay */}
+      {/* Color name indicator - always show at top */}
+      <div className="absolute top-8 left-8 text-5xl md:text-7xl font-black text-white drop-shadow-2xl z-20 animate-bounce-slow">
+        {colorId.toUpperCase()}
+      </div>
+
+      {/* Action text overlay - centered */}
       {showAction && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-          <div className="action-text px-8 py-6 bg-black/30 rounded-[3rem] backdrop-blur-sm">
+        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+          <div className="action-text px-12 py-8 bg-black/40 rounded-[3rem] backdrop-blur-md border-4 border-white/30 shadow-2xl">
             {action}
           </div>
-        </div>
-      )}
-
-      {/* Color name indicator - hidden since PlaceholderVideo shows it */}
-      {video && !videoError && (
-        <div className="absolute top-8 left-8 text-4xl md:text-6xl font-black text-white drop-shadow-2xl z-10">
-          {colorId.toUpperCase()}
         </div>
       )}
     </div>

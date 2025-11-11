@@ -84,15 +84,11 @@ const PlaceholderVideo = ({ colorId, gradient, onEnd, duration }: PlaceholderVid
       ctx.fillStyle = `${colors.accent}66`;
       ctx.fill();
 
-      // Draw color name
-      ctx.font = "bold 120px Arial";
-      ctx.fillStyle = "#ffffff";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-      ctx.shadowBlur = 20;
-      ctx.fillText(colorId.toUpperCase(), canvas.width / 2, canvas.height / 2);
-      ctx.shadowBlur = 0;
+      // Draw subtle center decoration (no text since overlay handles it)
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2, 50, 0, Math.PI * 2);
+      ctx.fillStyle = `${colors.accent}44`;
+      ctx.fill();
 
       // Continue animation or end
       if (progress < 1) {
