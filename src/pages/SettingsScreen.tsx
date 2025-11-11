@@ -103,6 +103,23 @@ const SettingsScreen = () => {
               </p>
             </div>
 
+            {/* Audio Toggle */}
+            <div className="flex items-center justify-between space-x-4 p-4 bg-muted/50 rounded-lg">
+              <div className="space-y-1">
+                <Label htmlFor="audio" className="text-xl font-bold cursor-pointer">
+                  Voice Audio
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  Speak each color action aloud
+                </p>
+              </div>
+              <Switch
+                id="audio"
+                checked={settings.audioEnabled}
+                onCheckedChange={(checked) => updateSettings({ audioEnabled: checked })}
+              />
+            </div>
+
             {/* Auto-play Toggle */}
             <div className="flex items-center justify-between space-x-4 p-4 bg-muted/50 rounded-lg">
               <div className="space-y-1">

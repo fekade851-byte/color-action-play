@@ -5,7 +5,8 @@
     "action": "RUN! 🏃‍♂️",
     "gradient": "bg-gradient-green",
     "duration": 5000,
-    "video": "/videos/green.mp4"
+    "video": "/videos/green.mp4",
+    "speech": "Green means Run! Let's run!"
   },
   {
     "id": "red",
@@ -13,7 +14,8 @@
     "action": "STOP! ✋",
     "gradient": "bg-gradient-red",
     "duration": 5000,
-    "video": "/videos/red.mp4"
+    "video": "/videos/red.mp4",
+    "speech": "Red means Stop! Freeze!"
   },
   {
     "id": "yellow",
@@ -21,7 +23,8 @@
     "action": "SIT DOWN! 🪑",
     "gradient": "bg-gradient-yellow",
     "duration": 5000,
-    "video": "/videos/yellow.mp4"
+    "video": "/videos/yellow.mp4",
+    "speech": "Yellow means Sit Down! Take a seat!"
   },
   {
     "id": "black",
@@ -29,7 +32,8 @@
     "action": "TOUCH YOUR HAIR! 💁",
     "gradient": "bg-gradient-black",
     "duration": 5000,
-    "video": "/videos/black.mp4"
+    "video": "/videos/black.mp4",
+    "speech": "Black means Touch Your Hair!"
   },
   {
     "id": "white",
@@ -37,7 +41,8 @@
     "action": "TOUCH YOUR TEETH! 😁",
     "gradient": "bg-gradient-white",
     "duration": 5000,
-    "video": "/videos/white.mp4"
+    "video": "/videos/white.mp4",
+    "speech": "White means Touch Your Teeth! Show me your smile!"
   },
   {
     "id": "blue",
@@ -45,7 +50,8 @@
     "action": "POINT TO THE SKY! ☁️",
     "gradient": "bg-gradient-blue",
     "duration": 5000,
-    "video": "/videos/blue.mp4"
+    "video": "/videos/blue.mp4",
+    "speech": "Blue means Point to the Sky! Look up high!"
   },
   {
     "id": "pink",
@@ -53,7 +59,8 @@
     "action": "STRIKE A POSE! 💃",
     "gradient": "bg-gradient-pink",
     "duration": 5000,
-    "video": "/videos/pink.mp4"
+    "video": "/videos/pink.mp4",
+    "speech": "Pink means Strike a Pose! Show me your best pose!"
   },
   {
     "id": "purple",
@@ -61,6 +68,7 @@
     "action": "DANCE! 🕺",
     "gradient": "bg-gradient-purple",
     "duration": 5000,
-    "video": "/videos/purple.mp4"
+    "video": "/videos/purple.mp4",
+    "speech": "Purple means Dance! Move your body!"
   }
 ]
