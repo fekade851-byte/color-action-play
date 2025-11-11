@@ -47,9 +47,9 @@ const GameScreen = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* Video Frame */}
-      <div className="flex-1">
+    <div className="min-h-screen h-screen flex flex-col relative overflow-hidden">
+      {/* Video Frame - Full screen */}
+      <div className="w-full h-full flex-1">
         <VideoFrame
           colorId={currentColor.id}
           action={currentColor.action}
