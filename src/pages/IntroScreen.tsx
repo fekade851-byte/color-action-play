@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play, Settings } from "lucide-react";
 
 const IntroScreen = () => {
   const navigate = useNavigate();
 
   const handleStart = () => {
     navigate("/game");
+  };
+
+  const handleSettings = () => {
+    navigate("/settings");
   };
 
   return (
@@ -39,14 +43,25 @@ const IntroScreen = () => {
           </div>
         </div>
 
-        {/* Start Button */}
-        <Button
-          onClick={handleStart}
-          className="game-button bg-white text-primary hover:bg-white/90 flex items-center gap-6"
-        >
-          <Play className="w-16 h-16 fill-current" />
-          LET'S PLAY!
-        </Button>
+        {/* Action Buttons */}
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
+          <Button
+            onClick={handleStart}
+            className="game-button bg-white text-primary hover:bg-white/90 flex items-center gap-6"
+          >
+            <Play className="w-16 h-16 fill-current" />
+            LET'S PLAY!
+          </Button>
+
+          <Button
+            onClick={handleSettings}
+            variant="secondary"
+            className="game-button bg-secondary text-secondary-foreground hover:bg-secondary/90 flex items-center gap-6"
+          >
+            <Settings className="w-12 h-12" />
+            SETTINGS
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, Home } from "lucide-react";
+import { RotateCcw, Home, Settings } from "lucide-react";
 
 const ClosingScreen = () => {
   const navigate = useNavigate();
@@ -11,6 +11,10 @@ const ClosingScreen = () => {
 
   const handleExit = () => {
     navigate("/");
+  };
+
+  const handleSettings = () => {
+    navigate("/settings");
   };
 
   return (
@@ -39,6 +43,15 @@ const ClosingScreen = () => {
           >
             <RotateCcw className="w-12 h-12" />
             PLAY AGAIN
+          </Button>
+
+          <Button
+            onClick={handleSettings}
+            variant="outline"
+            className="game-button bg-white/20 text-white border-white/40 hover:bg-white/30 flex items-center gap-4"
+          >
+            <Settings className="w-12 h-12" />
+            SETTINGS
           </Button>
 
           <Button

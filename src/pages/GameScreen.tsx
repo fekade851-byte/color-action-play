@@ -2,18 +2,20 @@ import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import VideoFrame from "@/components/VideoFrame";
 import colorsData from "@/data/colors.json";
+import { useSettings } from "@/contexts/SettingsContext";
 
 const GameScreen = () => {
   const navigate = useNavigate();
+  const { settings } = useSettings();
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
 
   // Generate automatic sequence: random color → green → random color → green...
-  // Total rounds: 4 (each round = random + green)
+  // Use numberOfRounds from settings
   const colorSequence = useMemo(() => {
     const nonGreenColors = colorsData.filter(color => color.id !== "green");
     const greenColor = colorsData.find(color => color.id === "green")!;
     const sequence = [];
-    const rounds = 4;
+    const rounds = settings.numberOfRounds;
 
     for (let i = 0; i < rounds; i++) {
       // Pick random non-green color
@@ -24,7 +26,7 @@ const GameScreen = () => {
     }
 
     return sequence;
-  }, []);
+  }, [settings.numberOfRounds]);
 
   const currentColor = colorSequence[currentColorIndex];
 
@@ -34,11 +36,13 @@ const GameScreen = () => {
   }, []);
 
   const handleAutoProgress = () => {
-    // Auto-progress to next color or closing
-    if (currentColorIndex < colorSequence.length - 1) {
-      setCurrentColorIndex(currentColorIndex + 1);
-    } else {
-      navigate("/closing");
+    // Only auto-progress if autoPlay is enabled
+    if (settings.autoPlay) {
+      if (currentColorIndex < colorSequence.length - 1) {
+        setCurrentColorIndex(currentColorIndex + 1);
+      } else {
+        navigate("/closing");
+      }
     }
   };
 
@@ -50,7 +54,7 @@ const GameScreen = () => {
           colorId={currentColor.id}
           action={currentColor.action}
           gradient={currentColor.gradient}
-          duration={currentColor.duration}
+          duration={settings.videoDuration}
           video={currentColor.video}
           onVideoEnd={handleAutoProgress}
         />
