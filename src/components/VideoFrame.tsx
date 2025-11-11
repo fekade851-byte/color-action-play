@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import PlaceholderVideo from "./PlaceholderVideo";
 
 interface VideoFrameProps {
   colorId: string;
@@ -53,7 +54,7 @@ const VideoFrame = ({ colorId, action, gradient, duration, video, onVideoEnd }: 
 
   return (
     <div className="w-full h-full relative overflow-hidden">
-      {/* Video element */}
+      {/* Video element or animated placeholder */}
       {video && !videoError ? (
         <video
           ref={videoRef}
@@ -66,14 +67,13 @@ const VideoFrame = ({ colorId, action, gradient, duration, video, onVideoEnd }: 
           className="absolute inset-0 w-full h-full object-cover"
         />
       ) : (
-        // Fallback gradient background if no video or video fails
-        <div className={`absolute inset-0 ${gradient}`}>
-          {/* Animated background circles */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full animate-pulse-glow" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full animate-pulse-glow delay-700" />
-          </div>
-        </div>
+        // Animated canvas placeholder
+        <PlaceholderVideo
+          colorId={colorId}
+          gradient={gradient}
+          duration={duration}
+          onEnd={handleVideoEnd}
+        />
       )}
 
       {/* Action text overlay */}
@@ -85,10 +85,12 @@ const VideoFrame = ({ colorId, action, gradient, duration, video, onVideoEnd }: 
         </div>
       )}
 
-      {/* Color name indicator */}
-      <div className="absolute top-8 left-8 text-4xl md:text-6xl font-black text-white drop-shadow-2xl z-10">
-        {colorId.toUpperCase()}
-      </div>
+      {/* Color name indicator - hidden since PlaceholderVideo shows it */}
+      {video && !videoError && (
+        <div className="absolute top-8 left-8 text-4xl md:text-6xl font-black text-white drop-shadow-2xl z-10">
+          {colorId.toUpperCase()}
+        </div>
+      )}
     </div>
   );
 };
