@@ -51,6 +51,7 @@ const GameScreen = () => {
           action={currentColor.action}
           gradient={currentColor.gradient}
           duration={currentColor.duration}
+          video={currentColor.video}
           onVideoEnd={handleAutoProgress}
         />
       </div>
