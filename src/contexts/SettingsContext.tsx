@@ -4,6 +4,7 @@ interface Settings {
   numberOfRounds: number;
   videoDuration: number;
   autoPlay: boolean;
+  gameDuration: number;
 }
 
 interface SettingsContextType {
@@ -16,6 +17,7 @@ const defaultSettings: Settings = {
   numberOfRounds: 4,
   videoDuration: 5000,
   autoPlay: true,
+  gameDuration: 300000,
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

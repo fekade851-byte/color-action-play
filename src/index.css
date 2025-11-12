@@ -121,16 +121,39 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+    touch-action: manipulation;
   }
 
   h1, h2, h3 {
     font-weight: 800;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (min-width: 1920px) {
+    body {
+      font-size: 1.25rem;
+    }
   }
 }
 
 @layer utilities {
   .game-button {
     @apply text-3xl md:text-5xl font-black py-8 px-12 rounded-[2rem] shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  @media (min-width: 1920px) {
+    .game-button {
+      @apply text-6xl py-12 px-16;
+    }
   }
 
   .action-text {

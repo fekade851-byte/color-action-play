@@ -54,25 +54,24 @@ const VideoFrame = ({ colorId, action, gradient, duration, video, onVideoEnd }: 
 
   return (
     <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-primary via-secondary to-accent">
-      {/* Video element or animated placeholder */}
-      {video && !videoError ? (
+      {/* Always show animated placeholder as background */}
+      <PlaceholderVideo
+        colorId={colorId}
+        gradient={gradient}
+        duration={duration}
+        onEnd={handleVideoEnd}
+      />
+
+      {/* Video element overlaid on top if available */}
+      {video && !videoError && (
         <video
           ref={videoRef}
           src={video}
           autoPlay
-          muted
           playsInline
           onEnded={handleVideoEnd}
           onError={handleVideoError}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      ) : (
-        // Animated canvas placeholder
-        <PlaceholderVideo
-          colorId={colorId}
-          gradient={gradient}
-          duration={duration}
-          onEnd={handleVideoEnd}
+          className="absolute inset-0 w-full h-full object-cover opacity-70 mix-blend-overlay"
         />
       )}
 

@@ -24,6 +24,10 @@ const SettingsScreen = () => {
     updateSettings({ autoPlay: checked });
   };
 
+  const handleGameDurationChange = (value: number[]) => {
+    updateSettings({ gameDuration: value[0] * 60000 });
+  };
+
   const handleReset = () => {
     resetSettings();
     toast.success("Settings reset to defaults!");
@@ -100,6 +104,30 @@ const SettingsScreen = () => {
               />
               <p className="text-sm text-muted-foreground">
                 How long each color displays before moving to the next
+              </p>
+            </div>
+
+            {/* Game Duration */}
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <Label htmlFor="gameDuration" className="text-xl font-bold">
+                  Total Game Time
+                </Label>
+                <span className="text-2xl font-black text-primary">
+                  {settings.gameDuration / 60000}min
+                </span>
+              </div>
+              <Slider
+                id="gameDuration"
+                min={1}
+                max={30}
+                step={1}
+                value={[settings.gameDuration / 60000]}
+                onValueChange={handleGameDurationChange}
+                className="w-full"
+              />
+              <p className="text-sm text-muted-foreground">
+                Maximum duration for the entire game session
               </p>
             </div>
 
