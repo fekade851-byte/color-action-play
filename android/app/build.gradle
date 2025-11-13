@@ -1,9 +1,7 @@
-// Remove the buildscript block as it's not needed here
-// Kotlin plugin is applied in the root project
-
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android' apply false // Apply false here, will be applied in subprojects
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
