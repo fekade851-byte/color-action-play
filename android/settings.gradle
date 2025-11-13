@@ -1,3 +1,4 @@
+// Plugin management must be the first block in settings.gradle
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -8,14 +9,17 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == 'com.android' || requested.id.name == 'kotlin-android-extensions') {
-                useModule("com.android.tools.build:gradle:${requested.version}")
+                useModule("com.android.tools.build:gradle:8.1.0")
             }
         }
     }
 }
 
+// Dependency resolution management
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    
+    // Configure repositories for all projects
     repositories {
         google()
         mavenCentral()
@@ -23,10 +27,21 @@ dependencyResolutionManagement {
     }
 }
 
+// Root project name
 rootProject.name = "ColorMoveKids"
 
+// Include all modules
 include ':app'
-include ':capacitor-cordova-android-plugins'
-project(':capacitor-cordova-android-plugins').projectDir = new File('./capacitor-cordova-android-plugins/')
 
-apply from: 'capacitor.settings.gradle'
+// Include Capacitor plugins if they exist
+def capacitorPluginsDir = new File('./capacitor-cordova-android-plugins/')
+if (capacitorPluginsDir.exists()) {
+    include ':capacitor-cordova-android-plugins'
+    project(':capacitor-cordova-android-plugins').projectDir = capacitorPluginsDir
+}
+
+// Apply Capacitor settings if the file exists
+def capacitorSettings = file('capacitor.settings.gradle')
+if (capacitorSettings.exists()) {
+    apply from: capacitorSettings
+}
