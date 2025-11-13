@@ -1,0 +1,104 @@
+buildscript {
+    ext {
+        // Define the Android Gradle Plugin version here
+        agpVersion = '8.1.0'
+    }
+}
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android' version '1.8.20' // Add Kotlin plugin
+}
+
+android {
+    namespace "com.color.movekids"
+    compileSdk rootProject.ext.compileSdkVersion
+    
+    // Enable Java 17 features
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    defaultConfig {
+        applicationId "com.color.movekids"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Enable multidex for older devices
+        multiDexEnabled true
+        
+        // Enable vector drawable support
+        vectorDrawables.useSupportLibrary = true
+        
+        aaptOptions {
+            // Files and dirs to omit from the packaged assets dir
+            ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+            
+            // Enable resource shrinking
+            cruncherEnabled = true
+        }
+    }
+    
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+    }
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation "androidx.leanback:leanback:$androidxLeanbackVersion"
+    implementation "androidx.leanback:leanback-preference:$androidxLeanbackVersion"
+    implementation 'androidx.tvprovider:tvprovider:1.0.0'
+    
+    // Capacitor core
+    implementation project(':capacitor-android')
+    implementation project(':capacitor-cordova-android-plugins')
+    
+    // Testing
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    
+    // Media playback
+    implementation 'androidx.media:media:1.6.0'
+    
+    // For adaptive icons (Android 8.0+)
+    implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
+}
+
+apply from: 'capacitor.build.gradle'
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}
